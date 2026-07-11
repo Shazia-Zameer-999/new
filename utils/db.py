@@ -14,6 +14,7 @@ from functools import lru_cache
 from bson import ObjectId
 from bson.errors import InvalidId
 from pymongo import MongoClient
+import certifi
 from pymongo.errors import PyMongoError
 
 
@@ -25,7 +26,15 @@ def get_db():
     print("Connecting to MongoDB at", uri)
     if not uri:
         raise RuntimeError("MONGODB_URI is not set — check your .env file")
-    client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+    client = MongoClient(
+
+    uri,
+
+    tlsCAFile=certifi.where(),
+
+    serverSelectionTimeoutMS=5000,
+
+)
     return client.get_default_database()
 
 
