@@ -156,7 +156,7 @@ def newsletter_signup():
 @main_bp.route("/admin", methods=["GET", "POST"])
 def admin_login():
     if is_admin():
-        return redirect(url_for("main.admin_dashboard"))
+        return redirect(url_for("admin_gallery.gallery_list"))
 
     error = None
     if request.method == "POST":

@@ -3446,12 +3446,6 @@ textarea:focus-visible {
   border-color: var(--gold);
   background: rgba(201, 154, 67, 0.08);
 }
-.gallery-form__preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 .gallery-form__dropzone-hint {
   display: flex;
   flex-direction: column;
@@ -3465,6 +3459,30 @@ textarea:focus-visible {
 .gallery-form__dropzone-hint i {
   font-size: 1.6rem;
   color: var(--gold);
+}
+/* Ensure the progress container is fully hidden when marked with the hidden attribute */
+.gallery-form__progress[hidden] {
+  display: none !important;
+}
+
+.gallery-form__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+.gallery-form__preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .gallery-form__progress {
   position: absolute;

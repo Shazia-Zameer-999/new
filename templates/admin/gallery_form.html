@@ -62,11 +62,6 @@
 
         <div class="gallery-form__row gallery-form__row--split">
           <div class="gallery-form__field">
-            <label for="name">Title</label>
-            <input type="text" id="name" name="name" value="{{ item.name or '' }}" maxlength="120"
-                   placeholder="e.g. Antique Gold Hoop Earrings">
-          </div>
-          <div class="gallery-form__field">
             <label for="category">Category *</label>
             <input type="text" id="category" name="category" value="{{ item.category or '' }}" maxlength="60"
                    list="categoryOptions" required>
@@ -86,8 +81,8 @@
                    min="0" step="0.01" required>
             {% if errors.price %}<span class="form-error">{{ errors.price }}</span>{% endif %}
           </div>
-          <div class="gallery-form__field">
-            <label for="sku">SKU</label>
+          <div class="gallery-form__field" required>
+            <label for="sku">SKU *</label>
             <input type="text" id="sku" name="sku" value="{{ item.sku or '' }}" maxlength="40"
                    placeholder="e.g. ZEV-EAR-022">
           </div>
@@ -95,27 +90,21 @@
 
         <div class="gallery-form__row gallery-form__row--split">
           <div class="gallery-form__field">
-            <label for="size">Grid size</label>
+            <label for="size" required>Grid size *</label>
             <select id="size" name="size">
               {% for s in ["square", "tall", "wide"] %}
               <option value="{{ s }}" {% if (item.size or "square") == s %}selected{% endif %}>{{ s|title }}</option>
               {% endfor %}
+              {% if errors.size %}<span class="form-error">{{ errors.size }}</span>{% endif %}
             </select>
           </div>
           <div class="gallery-form__field">
-            <label for="swatch">Fallback swatch (1–12)</label>
+            <label for="swatch" required>Fallback swatch (1–12) *</label>
             <input type="number" id="swatch" name="swatch" value="{{ item.swatch if item.swatch is defined else '' }}"
                    min="1" max="12" placeholder="Random if left blank">
+                   {% if errors.swatch %}<span class="form-error">{{ errors.swatch }}</span>{% endif %}
           </div>
         </div>
-
-        <!-- <div class="gallery-form__row">
-          <div class="gallery-form__field">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="4" maxlength="2000"
-                      placeholder="Optional notes about this piece">{{ item.description or '' }}</textarea>
-          </div>
-        </div> -->
 
         <div class="gallery-form__actions">
           <a class="btn-thread btn-thread--ghost" href="{{ url_for('admin_gallery.gallery_list') }}"><span>Cancel</span></a>

@@ -89,11 +89,15 @@ def _validate_form(form, *, require_image: bool):
     name = _clean_str(form.get("name"), 120)
     category = _clean_str(form.get("category"), 60)
     sku = _clean_str(form.get("sku"), 40)
-    description = _clean_str(form.get("description"), 2000)
+    # description = _clean_str(form.get("description"), 2000)
     size = _clean_str(form.get("size")).lower() or DEFAULT_SIZE
 
     if not category:
         errors["category"] = "Category is required."
+    if not size:
+        errors["size"] = "Size is required."
+    if not sku:
+        errors["sku"] = "SKU is required."
 
     if size not in VALID_SIZES:
         size = DEFAULT_SIZE
@@ -113,7 +117,6 @@ def _validate_form(form, *, require_image: bool):
         "name": name,
         "category": category,
         "sku": sku,
-        "description": description,
         "size": size,
         "swatch": swatch,
     }
