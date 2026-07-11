@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentOrderItem = null;
 
   function buildOrderMessage(item) {
-    return `Hi Zewarish,\n\nI would like to order this jewellery.\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: https://zewarish.vercel.app/static/images/gallery/${item.dataset.id || ""}.jpg\n\nPlease let me know the availability.`;
+    return `Hi Zewarish,\n\nI would like to order this jewellery.\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: https://new-gamma-flame.vercel.app/static/images/gallery/${item.dataset.id || ""}.jpg\n\nPlease let me know the availability.`;
   }
 
   function getIgUser() {
