@@ -315,6 +315,32 @@ document.addEventListener("DOMContentLoaded", () => {
     return list.includes(strId);
   }
 
+  function pruneWishlist() {
+    // The badge count is just getWishlist().length, and the drawer already
+    // silently drops any id that has no matching .gallery__item (e.g. the
+    // product was deleted in the admin, or the id is left over from an
+    // older visit). Without this, localStorage still holds those ghost
+    // ids forever, so the count on load never matches what's actually
+    // save-able -- it can show a number even though nothing "real" is
+    // saved. This reconciles localStorage against what's really on the
+    // page and rewrites it if anything stale was found.
+    const validIds = new Set(
+      Array.from(document.querySelectorAll(".gallery__item[data-id]")).map(
+        (el) => el.dataset.id
+      )
+    );
+    const list = getWishlist();
+    const pruned = list.filter((id) => validIds.has(id));
+    if (pruned.length !== list.length) {
+      try {
+        localStorage.setItem(WISHLIST_KEY, JSON.stringify(pruned));
+      } catch (e) {
+        console.error("[Storage Debug] Prune write failed:", e);
+      }
+    }
+    return pruned;
+  }
+
   function refreshSavedState() {
     document.querySelectorAll(".gallery__item").forEach((item) => {
       const id = item.dataset.id;
@@ -324,6 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
+  pruneWishlist();
   refreshSavedState();
 
   const galleryGrid = document.getElementById("galleryGrid");
