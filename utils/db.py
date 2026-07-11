@@ -48,6 +48,58 @@ def fetch_filters(default=None):
         return default or []
 
 
+def add_gallery_filter(category: str) -> bool:
+    """Ensures `category` exists in the `filters` collection's single
+    `filters` array. Called whenever the gallery admin form is submitted
+    with a category that isn't already a known filter.
+
+    Case-insensitive check (so "earrings" doesn't create a duplicate of
+    "Earrings"), but the value is stored exactly as the admin typed it.
+    Upserts the singleton filters document if it doesn't exist yet.
+
+    Returns True if a new filter was actually added, False if it already
+    existed (or the input was blank / a Mongo error occurred).
+    """
+    category = (category or "").strip()
+    if not category:
+        return False
+    try:
+        doc = get_db().filters.find_one({}, {"filters": 1}) or {}
+        current = doc.get("filters", [])
+        if any(str(c).strip().lower() == category.lower() for c in current):
+            return False
+        get_db().filters.update_one(
+            {}, {"$addToSet": {"filters": category}}, upsert=True
+        )
+        return True
+    except PyMongoError as exc:
+        print("Mongo error adding filter:", exc)
+        return False
+
+
+def remove_filter_if_unused(category: str, keep=("All",)) -> bool:
+    """Pulls `category` out of the `filters` array, but only if no gallery
+    item uses it anymore. Meant to be called *after* a delete/edit that may
+    have just removed the last product in a category, so the filter pill
+    doesn't linger empty on the live site. Never removes anything in `keep`.
+
+    Returns True if the filter was actually removed, False if it's still
+    in use, wasn't there, was protected, or a Mongo error occurred.
+    """
+    category = (category or "").strip()
+    if not category or category in keep:
+        return False
+    try:
+        still_in_use = get_db().gallery.count_documents({"category": category}) > 0
+        if still_in_use:
+            return False
+        result = get_db().filters.update_one({}, {"$pull": {"filters": category}})
+        return result.modified_count > 0
+    except PyMongoError as exc:
+        print("Mongo error removing filter:", exc)
+        return False
+
+
 def fetch_gallery_photos(default=None):
     """`gallery` collection holds one document per photo/item."""
     try:

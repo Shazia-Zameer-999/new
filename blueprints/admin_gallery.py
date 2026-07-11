@@ -38,10 +38,12 @@ from utils.auth import admin_required
 from utils.cloudinary_utils import delete_asset, generate_upload_signature, is_configured
 from utils.content_loader import clear_content_cache
 from utils.db import (
+    add_gallery_filter,
     delete_gallery_photo,
     fetch_gallery_photo_by_id,
     fetch_gallery_photos,
     insert_gallery_photo,
+    remove_filter_if_unused,
     update_gallery_photo,
 )
 
@@ -154,8 +156,12 @@ def gallery_new():
             return render_template("admin/gallery_form.html", item=fields, errors=errors, mode="new")
         try:
             insert_gallery_photo(fields)
+            is_new_filter = add_gallery_filter(fields["category"])
             clear_content_cache()
-            flash("Gallery item added.", "success")
+            if is_new_filter:
+                flash(f'Gallery item added and "{fields["category"]}" added as a new filter.', "success")
+            else:
+                flash("Gallery item added.", "success")
             return redirect(url_for("admin_gallery.gallery_list"))
         except Exception:
             current_app.logger.exception("Failed to insert gallery item")
@@ -186,12 +192,19 @@ def gallery_edit(item_id):
 
         try:
             update_gallery_photo(item_id, fields)
+            is_new_filter = add_gallery_filter(fields["category"])
+            old_category = existing.get("category")
+            if old_category and old_category != fields["category"]:
+                remove_filter_if_unused(old_category)
             clear_content_cache()
             # Only clean up the old asset once the new one is confirmed
             # saved, and only if the image actually changed.
             if new_public_id and old_public_id and new_public_id != old_public_id:
                 delete_asset(old_public_id)
-            flash("Gallery item updated.", "success")
+            if is_new_filter:
+                flash(f'Gallery item updated and "{fields["category"]}" added as a new filter.', "success")
+            else:
+                flash("Gallery item updated.", "success")
             return redirect(url_for("admin_gallery.gallery_list"))
         except Exception:
             current_app.logger.exception("Failed to update gallery item")
@@ -212,6 +225,7 @@ def gallery_delete(item_id):
 
     deleted = delete_gallery_photo(item_id)
     if deleted:
+        remove_filter_if_unused(existing.get("category"))
         clear_content_cache()
         public_id = existing.get("image_public_id")
         if public_id:
