@@ -22,6 +22,7 @@ def get_db():
     """Cached Mongo connection. The database name ('zewarish') is read
     straight out of the URI path, so nothing else needs to be configured."""
     uri = os.environ.get("MONGODB_URI")
+    print("Connecting to MongoDB at", uri)
     if not uri:
         raise RuntimeError("MONGODB_URI is not set — check your .env file")
     client = MongoClient(uri, serverSelectionTimeoutMS=5000)
