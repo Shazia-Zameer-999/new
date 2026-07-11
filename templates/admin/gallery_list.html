@@ -63,7 +63,7 @@
           </div>
           <div class="gallery-admin-card__body">
             <span class="gallery-admin-card__cat">{{ item.category }}</span>
-            <strong class="gallery-admin-card__name">{{ item.name or "Untitled piece" }}</strong>
+            <!-- <strong class="gallery-admin-card__name">{{ item.name or "this piece" }}</strong> -->
             <span class="gallery-admin-card__price">₹{{ item.price|default(0) }}</span>
             {% if item.sku %}<span class="gallery-admin-card__sku">SKU {{ item.sku }}</span>{% endif %}
           </div>
