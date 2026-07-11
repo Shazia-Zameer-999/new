@@ -163,7 +163,7 @@ def admin_login():
         password = request.form.get("password", "")
         if password == current_app.config.get("ADMIN_PASSWORD"):
             session["is_admin"] = True
-            return redirect(url_for("main.admin_dashboard"))
+            return redirect(url_for("admin_gallery.gallery_list"))
         error = "Incorrect password."
 
     return render_template("admin/login.html", error=error)
