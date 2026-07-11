@@ -1,0 +1,29 @@
+{
+  "name": "Zewarish",
+  "tagline": "Zewarish : Timeless. Untarnished. Yours.",
+  "short_name": "Zewarish",
+  "founded_year": 2026,
+  "description": "A premium jewellery brand for certified gold, diamonds, gemstones, bridal sets, custom ornaments, and meaningful gifts crafted with a contemporary heirloom aesthetic.",
+  "address": {
+    "line1": "Zewarish Jewellery House",
+    "line2": "MG Road, Civil Lines",
+    "city": "Basti",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "pincode": "272001",
+    "full": "Zewarish Jewellery House, MG Road, Civil Lines, Basti, Uttar Pradesh"
+  },
+  "phone": "+91 87650 71161",
+  "phone_display": "+91 87650 71161",
+  "whatsapp": "+91 875450 71161",
+  "email": "hello@zewarish.com",
+  "rating": 4.8,
+  "review_count": 412,
+  "hours": {
+    "mon_sat": "10:30 AM - 8:00 PM",
+    "sun": "11:30 AM - 6:30 PM"
+  },
+  "map_embed_query": "Zewarish Jewellery House, Civil Lines, Basti, Uttar Pradesh",
+  "map_lat": 26.7929,
+  "map_lng": 82.7328
+}

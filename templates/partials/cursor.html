@@ -1,0 +1,20 @@
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="liquidGoo" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+      <feColorMatrix in="blur" mode="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 24 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+    </filter>
+  </defs>
+</svg>
+<div class="cursor-goo" id="cursorGoo" aria-hidden="true">
+  <div class="cursor-blob" id="cursorBlob">
+    <span class="cursor-blob__shine"></span>
+  </div>
+  <div class="cursor-core" id="cursorCore"></div>
+</div>
+<div class="cursor-ripple" id="cursorRipple" aria-hidden="true"></div>

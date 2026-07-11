@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>{{ content.seo.title }}</title>
+<meta name="description" content="{{ content.seo.meta_description }}">
+<meta name="keywords" content="{{ content.seo.keywords | join(', ') }}">
+<link rel="canonical" href="{{ content.seo.canonical_url }}">
+<meta name="theme-color" content="{{ content.theme.palette.bordeaux }}">
+<link rel="manifest" href="{{ url_for('main.manifest') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}" type="image/svg+xml">
+
+<!-- OpenGraph -->
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="{{ content.seo.title }}">
+<meta property="og:description" content="{{ content.seo.meta_description }}">
+<meta property="og:image" content="{{ content.seo.og_image }}">
+<meta property="og:locale" content="{{ content.seo.locale }}">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="{{ content.seo.twitter_handle }}">
+<meta name="twitter:title" content="{{ content.seo.title }}">
+<meta name="twitter:description" content="{{ content.seo.meta_description }}">
+<meta name="twitter:image" content="{{ content.seo.og_image }}">
+
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">{{ schema_json | safe }}</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{{ content.theme.fonts.google_fonts_url }}">
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Font Awesome Font-Display Override -->
+<style>
+  @font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-brands-400.woff2") format("woff2");
+  }
+</style>
+
+<!-- Swiper (single copy) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.4/swiper-bundle.min.css">
+<!-- Theme (config-generated CSS variables) -->
+{% include "partials/theme_vars.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+{% include "partials/loading_screen.html" %}
+{% include "partials/cursor.html" %}
+<div class="scroll-progress" id="scrollProgress"><span></span></div>
+
+{% include "partials/navbar.html" %}
+
+<main id="smooth-wrapper">
+  <div id="smooth-content">
+    {% block content %}{% endblock %}
+    {% include "partials/footer.html" %}
+  </div>
+</main>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- Vendor scripts (single copy each, deferred so they don't block parsing/paint) -->
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.1.4/swiper-bundle.min.js" defer></script>
+<!-- App scripts (defer preserves this exact order, runs after vendor scripts, before DOMContentLoaded) -->
+<script src="{{ url_for('static', filename='js/cursor.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/scroll.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/animations.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/gallery.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/forms.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

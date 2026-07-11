@@ -1,0 +1,41 @@
+{% import "macros/ui.html" as ui %}
+<section class="contact" id="contact" data-section="contact">
+  <div class="container contact__grid">
+    <div class="contact__info" data-reveal>
+      <span class="eyebrow"><i class="fa-solid fa-minus"></i> Visit The Showroom</span>
+      <h2 class="section-title">Find the Zewarish showroom.</h2>
+      <div class="contact__card">
+        <i class="fa-solid fa-location-dot"></i>
+        <div>
+          <strong>{{ content.business.name }}</strong>
+          <p>{{ content.business.address.line1 }}, {{ content.business.address.line2 }}<br>{{ content.business.address.city }}, {{ content.business.address.state }}</p>
+        </div>
+      </div>
+      <div class="contact__card">
+        <i class="fa-solid fa-phone"></i>
+        <div>
+          <strong>Call the showroom</strong>
+          <p><a href="tel:{{ content.business.phone | replace(' ', '') }}">{{ content.business.phone_display }}</a></p>
+        </div>
+      </div>
+      <div class="contact__card">
+        <i class="fa-solid fa-clock"></i>
+        <div>
+          <strong>Showroom hours</strong>
+          <p>Mon&ndash;Sat: {{ content.business.hours.mon_sat }}<br>Sun: {{ content.business.hours.sun }}</p>
+        </div>
+      </div>
+      {{ ui.btn_thread("Get Directions", "https://www.google.com/maps/search/?api=1&query=" ~ content.business.map_lat ~ "," ~ content.business.map_lng, "primary", "diamond-turn-right", magnetic=True) }}
+    </div>
+
+    <div class="contact__map" data-reveal-mask>
+      <iframe
+        title="Zewarish showroom location map"
+        src="https://www.google.com/maps?q={{ content.business.map_lat }},{{ content.business.map_lng }}&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="contact__map-pin"><i class="fa-solid fa-location-dot"></i></div>
+    </div>
+  </div>
+</section>

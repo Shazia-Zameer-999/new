@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Admin | {{ content.business.name }}</title>
+  <link rel="stylesheet" href="{{ content.theme.fonts.google_fonts_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  {% include "partials/theme_vars.html" %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <header class="admin-topbar">
+      <div>
+        <span class="eyebrow"><i class="fa-solid fa-minus"></i> Back Office</span>
+        <h1>Gallery</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('main.admin_dashboard') }}">Dashboard</a>
+        <a href="/">Website</a>
+        <a href="{{ url_for('main.admin_logout') }}">Logout</a>
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-stack">
+        {% for category, message in messages %}
+        <div class="flash flash--{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if not cloudinary_ready %}
+    <div class="flash flash--error">
+      Cloudinary isn't configured on the server yet (missing CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY /
+      CLOUDINARY_API_SECRET). Photo uploads will fail until those environment variables are set.
+    </div>
+    {% endif %}
+
+    <section class="admin-panel">
+      <div class="admin-panel__head">
+        <h2>Gallery Items <span class="gallery-admin-count">{{ photos|length }}</span></h2>
+        <a class="btn-thread btn-thread--primary btn-thread--sm" href="{{ url_for('admin_gallery.gallery_new') }}">
+          <span>Add Item</span><i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+
+      {% if photos %}
+      <div class="gallery-admin-grid">
+        {% for item in photos %}
+        <article class="gallery-admin-card">
+          <div class="gallery-admin-card__media">
+            {% if item.image %}
+            <img src="{{ item.image|cloudinary_url(500) }}" alt="{{ item.name or item.category }}" loading="lazy">
+            {% else %}
+            <div class="gallery-admin-card__noimg swatch swatch--{{ (item.swatch|default(0)) % 12 + 1 }}">
+              <i class="fa-solid fa-image"></i>
+            </div>
+            {% endif %}
+          </div>
+          <div class="gallery-admin-card__body">
+            <span class="gallery-admin-card__cat">{{ item.category }}</span>
+            <strong class="gallery-admin-card__name">{{ item.name or "Untitled piece" }}</strong>
+            <span class="gallery-admin-card__price">₹{{ item.price|default(0) }}</span>
+            {% if item.sku %}<span class="gallery-admin-card__sku">SKU {{ item.sku }}</span>{% endif %}
+          </div>
+          <div class="gallery-admin-card__actions">
+            <a class="btn-thread btn-thread--ghost btn-thread--sm" href="{{ url_for('admin_gallery.gallery_edit', item_id=item.id) }}">
+              <span>Edit</span><i class="fa-solid fa-pen"></i>
+            </a>
+            <form method="post" action="{{ url_for('admin_gallery.gallery_delete', item_id=item.id) }}"
+                  onsubmit="return confirm('Delete this gallery item? This can\'t be undone.');">
+              <button type="submit" class="btn-thread btn-thread--sm btn-thread--danger">
+                <span>Delete</span><i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="admin-empty">No gallery items yet. Add the first one to get the collection started.</p>
+      {% endif %}
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+</body>
+</html>

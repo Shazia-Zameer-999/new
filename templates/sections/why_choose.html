@@ -1,0 +1,15 @@
+{% import "macros/ui.html" as ui %}
+<section class="why-choose" id="why-choose" data-section="why-choose">
+  <div class="container">
+    {{ ui.section_header(content.homepage.why_choose.eyebrow, content.homepage.why_choose.title, align="left") }}
+    <div class="why-choose__grid">
+      {% for item in content.homepage.why_choose.cards %}
+      <div class="why-choose__card" data-reveal>
+        <div class="why-choose__icon"><i class="fa-solid fa-{{ item.icon }}"></i></div>
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.detail }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+{
+  "section": {
+    "eyebrow": "Jewellery Notes",
+    "title": "From the house journal.",
+    "subtitle": "Short, practical notes on buying, styling, caring for, and customising jewellery."
+  },
+  "posts": [
+    { "id": "b1", "title": "How to Plan Bridal Jewellery Around Your Lehenga", "excerpt": "A simple order for choosing necklace depth, earrings, bangles, and finishing details.", "category": "Bridal", "read_time": "4 min", "swatch": 3 },
+    { "id": "b2", "title": "Gold, Diamond, or Gemstone: What Makes Sense for Daily Wear?", "excerpt": "A practical guide to durability, comfort, care, and long-term value.", "category": "Buying Guide", "read_time": "5 min", "swatch": 7 },
+    { "id": "b3", "title": "How to Store Jewellery So It Keeps Its Finish", "excerpt": "Small aftercare habits that protect polish, clasps, stones, and chains.", "category": "Care", "read_time": "3 min", "swatch": 10 }
+  ]
+}

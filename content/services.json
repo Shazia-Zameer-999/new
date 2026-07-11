@@ -1,0 +1,64 @@
+{
+  "section": {
+    "eyebrow": "What We Craft",
+    "title": "Jewellery services, handled with care.",
+    "subtitle": "Explore ready collections, custom orders, styling appointments, repairs, and bridal jewellery planning with a dedicated advisor."
+  },
+  "categories": [
+    {
+      "id": "Earrings",
+      "icon": "Earrings",
+      "title": "Earrings",
+      "summary": "Hallmarked everyday and occasion pieces in yellow, rose, and antique gold finishes.",
+      "services": ["Earrings"]
+    },
+    {
+      "id": "Necklace",
+      "icon": "Necklace",
+      "title": "Necklace",
+      "summary": "Certified diamond rings, bracelets, pendants, and statement pieces with clean contemporary settings.",
+      "services": ["Solitaire Rings", "Diamond Bands", "Tennis Bracelets", "Diamond Pendants", "Daily-Wear Studs", "Cocktail Rings"]
+    },
+    {
+      "id": "Rings",
+      "icon": "Rings",
+      "title": "Rings",
+      "summary": "Emerald, ruby, sapphire, pearl, and kundan accents selected for tone, clarity, and character.",
+      "services": ["Navratna Jewellery", "Emerald Sets", "Ruby Rings", "Pearl Strings", "Kundan Earrings", "Gemstone Pendants"]
+    },
+    {
+      "id": "Bracelet",
+      "icon": "Bracelet",
+      "title": "Bracelet",
+      "summary": "Personalised jewellery designed around your story, budget, stone preference, and wearing style.",
+      "services": ["Name Pendants", "Engraved Rings", "Bespoke Bridal Sets", "Heirloom Redesign", "Stone Sourcing", "CAD Design Preview"]
+    }
+  ],
+  "bridal": {
+    "eyebrow": "Bridal Jewellery",
+    "subtitle": "From engagement rings to wedding-day sets and family gifts, each bridal consultation balances outfit, ceremony, budget, and heirloom value.",
+    "packages": [
+      {
+        "name": "Engagement Edit",
+        "description": "Rings, bracelets, pendants, and lightweight sets for engagement and pre-wedding functions.",
+        "includes": ["Ring Consultation", "Diamond or Gold Options", "Sizing Support", "Engraving Guidance", "Gift-Ready Packaging"],
+        "duration": "45-60 min",
+        "featured": false
+      },
+      {
+        "name": "Bridal Heirloom Set",
+        "description": "Our signature bridal planning appointment for necklace, earrings, bangles, and matching details.",
+        "includes": ["Full Bridal Styling", "Gold, Kundan, or Polki Options", "Outfit Matching", "Custom Sizing", "Certificate Review", "Aftercare Plan"],
+        "duration": "90 min",
+        "featured": true
+      },
+      {
+        "name": "Wedding Family Suite",
+        "description": "A coordinated jewellery plan for bride, close family, gifting, and ceremony essentials.",
+        "includes": ["Bride Jewellery Plan", "Family Gift Selection", "Mangalsutra Consultation", "Bangle & Ring Sizing", "Delivery Timeline Planning"],
+        "duration": "Multi-session",
+        "featured": false
+      }
+    ]
+  }
+}

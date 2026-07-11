@@ -1,0 +1,17 @@
+{% import "macros/ui.html" as ui %}
+<section class="reviews" id="reviews" data-section="reviews">
+  <div class="container reviews__inner" data-reveal>
+    <div class="reviews__badge">
+      <i class="fa-brands fa-google"></i>
+    </div>
+    <div class="reviews__score">
+      <span class="reviews__number">{{ content.testimonials.google.rating }}</span>
+      <div class="reviews__stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+      </div>
+      <span class="reviews__count">{{ content.testimonials.google.review_count }}+ Google reviews</span>
+    </div>
+    <p class="reviews__summary">{{ content.testimonials.google.summary }}</p>
+    {{ ui.btn_thread("Read Reviews on Google", content.socials.google_reviews, "ghost", "arrow-up-right-from-square", magnetic=True) }}
+  </div>
+</section>

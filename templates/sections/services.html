@@ -1,0 +1,20 @@
+{% import "macros/ui.html" as ui %}
+<section class="services" id="services" data-section="services">
+  <div class="container">
+    {{ ui.section_header(content.services.section.eyebrow, content.services.section.title, content.services.section.subtitle) }}
+
+    <div class="services__grid">
+      {% for cat in content.services.categories %}
+      <div class="service-card" data-reveal data-tilt>
+        <div class="service-card__icon"><i class="fa-solid fa-{{ cat.icon }}"></i></div>
+        <h3>{{ cat.title }}</h3>
+        <p>{{ cat.summary }}</p>
+        <ul class="service-card__list">
+          {% for s in cat.services[:4] %}<li>{{ s }}</li>{% endfor %}
+        </ul>
+        <a href="#book" class="service-card__link" data-scroll-link>Explore {{ cat.title }} <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

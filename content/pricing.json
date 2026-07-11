@@ -1,0 +1,37 @@
+{
+  "section": {
+    "eyebrow": "Starting Ranges",
+    "title": "Clear ranges before you visit.",
+    "subtitle": "Final pricing depends on metal rate, weight, stone quality, and custom work. Every estimate is confirmed before production or purchase."
+  },
+  "plans": [
+    {
+      "name": "Everyday Shine",
+      "price": "₹2,999",
+      "period": "starting",
+      "description": "Lightweight jewellery for daily wear and thoughtful gifting.",
+      "features": ["Silver Keepsakes", "Gold-Plated Pendants", "Minimal Studs", "Charm Bracelets"],
+      "cta": "Explore Everyday",
+      "featured": false
+    },
+    {
+      "name": "Signature Gold",
+      "price": "₹24,999",
+      "period": "starting",
+      "description": "Classic gold pieces for celebrations, family gifting, and festive wear.",
+      "features": ["Gold Chains", "Bangles & Kadas", "Mangalsutras", "Antique Gold Earrings", "Temple Pendants"],
+      "cta": "Explore Gold",
+      "featured": true
+    },
+    {
+      "name": "Bridal Heirloom",
+      "price": "₹1,49,999",
+      "period": "starting",
+      "description": "Wedding-day jewellery planned around your outfit and ceremonies.",
+      "features": ["Bridal Necklace Sets", "Kundan or Polki Options", "Diamond Rings", "Bangle Stacks", "Custom Finishing"],
+      "cta": "Plan Bridal Set",
+      "featured": false
+    }
+  ],
+  "note": "Gold and diamond prices vary with live rates and certification choices. Visit or book a consultation for a precise quote."
+}

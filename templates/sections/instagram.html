@@ -1,0 +1,62 @@
+{% import "macros/ui.html" as ui %}
+
+<section class="instagram" id="instagram" data-section="instagram">
+  <div class="container">
+    {{ ui.section_header(
+      "Follow Along",
+      "New pieces from the Zewarish vault.",
+      "@zewarish"
+    ) }}
+  </div>
+
+  <div class="instagram__track-wrap">
+    <div class="instagram__track" id="instagramTrack">
+
+      {% for i in range(1, 9) %}
+      <a
+        class="instagram__item"
+        href="{{ content.socials.instagram }}"
+        target="_blank"
+        rel="noopener"
+      >
+        <img
+          src="{{ url_for('static', filename='images/instagram/' ~ i ~ '.jpg') }}"
+          alt="Instagram Post {{ i }}"
+          class="instagram__image"
+          loading="lazy"
+        >
+
+        <div class="swatch__sheen"></div>
+
+        <span class="instagram__icon">
+          <i class="fa-brands fa-instagram"></i>
+        </span>
+      </a>
+      {% endfor %}
+
+      {% for i in range(1, 9) %}
+      <a
+        class="instagram__item"
+        href="{{ content.socials.instagram }}"
+        target="_blank"
+        rel="noopener"
+        aria-hidden="true"
+      >
+        <img
+          src="{{ url_for('static', filename='images/instagram/' ~ i ~ '.jpg') }}"
+          alt=""
+          class="instagram__image"
+          loading="lazy"
+        >
+
+        <div class="swatch__sheen"></div>
+
+        <span class="instagram__icon">
+          <i class="fa-brands fa-instagram"></i>
+        </span>
+      </a>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>

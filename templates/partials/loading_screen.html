@@ -1,0 +1,12 @@
+<div class="loader" id="loader">
+  <div class="loader__thread"></div>
+  <div class="loader__mark">
+    <img
+      class="loader__logo-img"
+      src="{{ url_for('static', filename='images/image2.webp') }}"
+      alt="{{ content.business.name }}"
+    />
+  </div>
+  <div class="loader__label">{{ content.business.name }}</div>
+  <div class="loader__bar"><span id="loaderProgress"></span></div>
+</div>

@@ -1,0 +1,22 @@
+{% import "macros/ui.html" as ui %}
+<section class="bridal" id="bridal" data-section="bridal">
+  <div class="bridal__bg-thread"></div>
+  <div class="container">
+    {{ ui.section_header(content.services.bridal.eyebrow, content.services.bridal.title, content.services.bridal.subtitle) }}
+
+    <div class="bridal__grid">
+      {% for pkg in content.services.bridal.packages %}
+      <div class="bridal-card {{ 'bridal-card--featured' if pkg.featured else '' }}" data-reveal>
+        {% if pkg.featured %}<span class="bridal-card__tag">Most Booked</span>{% endif %}
+        <h3>{{ pkg.name }}</h3>
+        <p class="bridal-card__desc">{{ pkg.description }}</p>
+        <span class="bridal-card__duration"><i class="fa-regular fa-clock"></i> {{ pkg.duration }}</span>
+        <ul class="bridal-card__includes">
+          {% for inc in pkg.includes %}<li><i class="fa-solid fa-check"></i>{{ inc }}</li>{% endfor %}
+        </ul>
+        {{ ui.btn_thread("Enquire for " + pkg.name, "#book", "primary" if pkg.featured else "ghost") }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

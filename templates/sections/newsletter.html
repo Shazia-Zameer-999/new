@@ -1,0 +1,18 @@
+<section class="newsletter" id="newsletter" data-section="newsletter">
+  <div class="container newsletter__inner" data-reveal>
+    <div class="newsletter__copy">
+      <span class="eyebrow"><i class="fa-solid fa-minus"></i> {{ content.homepage.newsletter.eyebrow }}</span>
+      <h2 class="section-title">{{ content.homepage.newsletter.title }}</h2>
+      <p class="section-subtitle">{{ content.homepage.newsletter.body }}</p>
+    </div>
+    <form class="newsletter__form" id="newsletterForm" novalidate>
+      <div class="newsletter__field">
+        <input type="email" name="email" id="nf-email" placeholder="{{ content.homepage.newsletter.placeholder }}" required>
+        <button type="submit" data-magnetic><span>{{ content.homepage.newsletter.cta }}</span><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+      <span class="form-error" data-error-for="email"></span>
+      <p class="newsletter__privacy">{{ content.homepage.newsletter.privacy_note }}</p>
+      <div class="form-status" id="newsletterStatus" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>

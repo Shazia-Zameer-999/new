@@ -1,0 +1,94 @@
+{% import "macros/ui.html" as ui %}
+<section class="booking" id="book" data-section="booking">
+  <div class="booking__thread"></div>
+  <div class="container booking__grid">
+    <div class="booking__intro" data-reveal>
+      <span class="eyebrow"
+        ><i class="fa-solid fa-minus"></i> Get in Touch
+      </span>
+      <h2 class="section-title">Let's talk jewellery.</h2>
+      <p class="section-subtitle">
+        Share your details and we'll get back to you with pricing, availability
+        or anything else you'd like to know.
+      </p>
+      <div class="booking__contact-quick">
+        {% if content.socials.instagram %}
+        <a href="{{ content.socials.instagram }}" target="_blank" rel="noopener"
+          ><i class="fa-brands fa-instagram"></i> Instagram</a
+        >
+        {% endif %} {% if content.socials.email %}
+        <a href="mailto:{{ content.socials.email }}"
+          ><i class="fa-solid fa-envelope"></i> Email Us</a
+        >
+        {% endif %}
+      </div>
+    </div>
+
+    <form
+      method="POST"
+      action="{{ url_for('contact') }}"
+      class="booking__form"
+      id="bookingForm"
+      data-reveal
+      novalidate
+    >
+      <div class="form-row">
+        <div class="form-field">
+          <label for="bf-name">Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="bf-name" name="name" required />
+          <span class="form-error" data-error-for="name"></span>
+        </div>
+        <div class="form-field">
+          <label for="bf-email">Email <span aria-hidden="true">*</span></label>
+          <input type="email" id="bf-email" name="email" required />
+          <span class="form-error" data-error-for="email"></span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="bf-phone">Phone Number</label>
+          <input type="tel" id="bf-phone" name="phone" />
+          <span class="form-error" data-error-for="phone"></span>
+        </div>
+        <div class="form-field">
+          <label for="bf-service"
+            >Category <span aria-hidden="true">*</span></label
+          >
+          <select id="bf-service" name="service" required>
+            <option value="" disabled selected>Choose a jewellery need</option>
+            {% for cat in content.services.categories %}
+            <option value="{{ cat.title }}">{{ cat.title }}</option>
+            {% endfor %}
+          </select>
+          <span class="form-error" data-error-for="service"></span>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="bf-notes">Message <span aria-hidden="true">*</span></label>
+        <textarea
+          id="bf-notes"
+          name="notes"
+          rows="4"
+          placeholder="Tell us what you're looking for..."
+          required
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-thread btn-thread--primary btn-thread--block"
+        data-magnetic
+      >
+        <span>Send Message</span><i class="fa-solid fa-paper-plane"></i>
+      </button>
+      <div
+        class="form-status"
+        id="bookingStatus"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </form>
+  </div>
+</section>

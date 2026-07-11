@@ -1,0 +1,213 @@
+{% import "macros/ui.html" as ui %}
+<section class="gallery" id="gallery" data-section="gallery">
+  <div class="container">
+    {{ ui.section_header(content.gallery.section.eyebrow,
+    content.gallery.section.title, content.gallery.section.subtitle) }}
+
+    <div class="gallery__filters" data-reveal>
+      {% for f in content.gallery.filters %}
+      <button
+        class="gallery__filter-btn {{ 'is-active' if loop.first else '' }}"
+        data-filter="{{ f }}"
+      >
+        {{ f }}
+      </button>
+      {% endfor %}
+    </div>
+
+    <div class="gallery__grid" id="galleryGrid">
+      {% for item in content.gallery.photos %}
+      <figure
+        class="gallery__item gallery__item--{{ item.size }}"
+        data-category="{{ item.category }}"
+        data-reveal
+        data-id="{{ item.id }}"
+        data-name="{{ item.name }}"
+        data-price="{{ item.price }}"
+        data-sku="{{ item.sku }}"
+        data-slug="{{ item.slug }}"
+        data-description="{{ item.description|default('') }}"
+        data-image="{{ item.image|default('')|cloudinary_url }}"
+        data-lightbox-title="{{ item.name }}"
+        data-lightbox-category="{{ item.category }}"
+        data-lightbox-swatch="{{ item.swatch|default(0) }}"
+      >
+        <div class="gallery__item-media">
+          <img
+            src="{{ item.image|default('')|cloudinary_url }}"
+            alt="{{ item.name }}"
+            class="gallery__item-img"
+            loading="lazy"
+            decoding="async"
+            onerror="
+              this.closest('.gallery__item-media').classList.add('img-fallback')
+            "
+          />
+          <div class="swatch swatch--{{ (item.swatch|default(0)) % 12 + 1 }}">
+            <div class="swatch__sheen"></div>
+          </div>
+        </div>
+
+        <div class="gallery__item-price">₹{{ item.price }}</div>
+
+        <button
+          class="gallery__item-save"
+          data-save-btn
+          type="button"
+          aria-label="Save to wishlist"
+        >
+          <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <figcaption>
+          <span class="gallery__item-cat">{{ item.category }}</span>
+          <!-- <span class="gallery__item-title">{{ item.name }}</span> -->
+          <span class="gallery__item-sku">SKU {{ item.sku }}</span>
+          <span class="gallery__item-zoom"
+            ><i class="fa-solid fa-expand"></i
+          ></span>
+        </figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    <div
+      class="gallery__actions"
+      id="galleryActions"
+      style="text-align: center; margin-top: 3rem"
+    >
+      <button class="btn-load-more" id="loadMoreBtn" type="button">
+        Load More Pieces
+      </button>
+    </div>
+  </div>
+</section>
+
+<button
+  class="wishlist-toggle"
+  id="wishlistToggle"
+  aria-label="View saved items"
+>
+  <i class="fa-solid fa-heart"></i>
+  <span class="wishlist-toggle__count" id="wishlistCount">0</span>
+</button>
+
+<div class="wishlist-drawer" id="wishlistDrawer">
+  <div class="wishlist-drawer__header">
+    <h3>Saved Pieces</h3>
+    <button
+      class="wishlist-drawer__close"
+      id="wishlistClose"
+      aria-label="Close"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  <div class="wishlist-drawer__body" id="wishlistBody"></div>
+</div>
+<div class="wishlist-overlay" id="wishlistOverlay"></div>
+
+<div
+  class="lightbox"
+  id="lightbox"
+  data-instagram-user="{{ config.instagram_username|default('zewarish.co') }}"
+>
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <button
+    class="lightbox__nav lightbox__nav--prev"
+    id="lightboxPrev"
+    aria-label="Previous"
+  >
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <div class="lightbox__stage">
+    <div class="lightbox__media" id="lightboxMedia">
+      <img id="lightboxImage" src="" alt="" class="lightbox__img" />
+      <div class="swatch lightbox__swatch" id="lightboxSwatch">
+        <div class="swatch__sheen"></div>
+      </div>
+    </div>
+
+    <div class="lightbox__price" id="lightboxPrice"></div>
+
+    <div class="lightbox__info">
+      <span id="lightboxCategory"></span>
+      <h3 id="lightboxTitle"></h3>
+      <span class="lightbox__sku" id="lightboxSku"></span>
+      <!-- <p class="lightbox__description" id="lightboxDescription"></p> -->
+    </div>
+
+    <div class="lightbox__actions">
+      <button
+        class="lightbox__btn lightbox__btn--save"
+        id="lightboxSaveBtn"
+        type="button"
+      >
+        <i class="fa-regular fa-heart"></i> <span>Save</span>
+      </button>
+      <button
+        class="lightbox__btn lightbox__btn--order"
+        id="lightboxOrderBtn"
+        type="button"
+      >
+        <i class="fa-brands fa-instagram"></i>
+        <span>Order on Instagram</span>
+      </button>
+    </div>
+  </div>
+
+  <button
+    class="lightbox__nav lightbox__nav--next"
+    id="lightboxNext"
+    aria-label="Next"
+  >
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="order-modal" id="orderModal">
+  <div class="order-modal__overlay" id="orderModalOverlay"></div>
+  <div class="order-modal__panel" role="dialog" aria-modal="true" aria-labelledby="orderModalName">
+    <button class="order-modal__close" id="orderModalClose" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="order-modal__product">
+      <div class="order-modal__media">
+        <img id="orderModalImage" src="" alt="" class="order-modal__img" />
+      </div>
+      <div class="order-modal__info">
+        <span class="order-modal__cat" id="orderModalCategory"></span>
+        <h3 id="orderModalName"></h3>
+        <span class="order-modal__price" id="orderModalPrice"></span>
+        <span class="order-modal__sku" id="orderModalSku"></span>
+      </div>
+    </div>
+
+    <p class="order-modal__heading">Here's how ordering on Instagram works</p>
+    <ol class="order-modal__steps">
+      <li><strong>We copy</strong> this product's name, SKU, price &amp; link for you.</li>
+      <li><strong>Instagram opens</strong> in a new tab, right in our DM chat.</li>
+      <li><strong>Tap the message box and paste</strong> (long‑press → Paste, or Ctrl/Cmd+V) to send the details.</li>
+      <li>Want the photo in the chat too? Tap <strong>Save Photo</strong> below first, then attach it from your gallery before you send.</li>
+    </ol>
+
+    <div class="order-modal__actions">
+      <button class="order-modal__btn order-modal__btn--secondary" id="orderModalDownloadBtn" type="button">
+        <i class="fa-solid fa-download"></i> Save Photo
+      </button>
+      <button class="order-modal__btn order-modal__btn--share" id="orderModalShareBtn" type="button" hidden>
+        <i class="fa-solid fa-share-nodes"></i> Share Photo + Details
+      </button>
+      <button class="order-modal__btn order-modal__btn--primary" id="orderModalContinueBtn" type="button">
+        <i class="fa-brands fa-instagram"></i> Copy Details &amp; Open Instagram
+      </button>
+    </div>
+
+    <p class="order-modal__note" id="orderModalNote">Instagram doesn't let outside websites pre-fill a chat, so this is the fastest legit way to get your order across.</p>
+  </div>
+</div>

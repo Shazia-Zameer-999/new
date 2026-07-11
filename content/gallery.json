@@ -1,0 +1,225 @@
+{
+  "section": {
+    "eyebrow": "Collections",
+    "title": "A gallery of handpicked keepsakes.",
+    "subtitle": "Discover the essence of Zewarish."
+  },
+  "filters": [
+    "All",
+    "Earrings",
+    "Necklace",
+    "Bracelet",
+    "Rings"
+  ],
+  "photos": [
+    {
+      "id": "g1",
+      "category": "Rings",
+      "price": 149,
+      "sku": "ZEV-RNG-001",
+      "image": "/static/images/gallery/g1.jpg",
+      "swatch": 1,
+      "size": "tall"
+    },
+    {
+      "id": "g2",
+      "category": "Bracelet",
+      "price": 279,
+      "sku": "ZEV-BRC-002",
+      "image": "/static/images/gallery/g2.jpg",
+      "swatch": 2,
+      "size": "wide"
+    },
+    {
+      "id": "g3",
+      "category": "Earrings",
+      "price": 89,
+      "sku": "ZEV-EAR-003",
+      "image": "/static/images/gallery/g3.jpg",
+      "swatch": 3,
+      "size": "square"
+    },
+    {
+      "id": "g4",
+      "category": "Bracelet",
+      "price": 199,
+      "sku": "ZEV-BRC-004",
+      "image": "/static/images/gallery/g4.jpg",
+      "swatch": 4,
+      "size": "square"
+    },
+    {
+      "id": "g5",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-005",
+      "image": "/static/images/gallery/g5.jpg",
+      "swatch": 5,
+      "size": "square"
+    },
+    {
+      "id": "g6",
+      "category": "Necklace",
+      "price": 199,
+      "sku": "ZEV-NCK-006",
+      "image": "/static/images/gallery/g6.jpg",
+      "swatch": 6,
+      "size": "square"
+    },
+    {
+      "id": "g7",
+      "category": "Necklace",
+      "price": 199,
+      "sku": "ZEV-NCK-007",
+      "image": "/static/images/gallery/g7.jpg",
+      "swatch": 7,
+      "size": "wide"
+    },
+    {
+      "id": "g8",
+      "category": "Earrings",
+      "price": 119,
+      "sku": "ZEV-EAR-008",
+      "image": "/static/images/gallery/g8.jpg",
+      "swatch": 8,
+      "size": "tall"
+    },
+    {
+      "id": "g9",
+      "category": "Earrings",
+      "price": 139,
+      "sku": "ZEV-EAR-009",
+      "image": "/static/images/gallery/g9.jpg",
+      "swatch": 8,
+      "size": "tall"
+    },
+    {
+      "id": "g10",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-010",
+      "image": "/static/images/gallery/g10.jpg",
+      "swatch": 9,
+      "size": "square"
+    },
+    {
+      "id": "g11",
+      "category": "Earrings",
+      "price": 119,
+      "sku": "ZEV-EAR-011",
+      "image": "/static/images/gallery/g11.jpg",
+      "swatch": 10,
+      "size": "square"
+    },
+    {
+      "id": "g12",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-012",
+      "image": "/static/images/gallery/g12.jpg",
+      "swatch": 11,
+      "size": "square"
+    },
+    {
+      "id": "g13",
+      "category": "Necklace",
+      "price": 199,
+      "sku": "ZEV-NCK-013",
+      "image": "/static/images/gallery/g13.jpg",
+      "swatch": 12,
+      "size": "square"
+    },
+    {
+      "id": "g14",
+      "category": "Rings",
+      "price": 169,
+      "sku": "ZEV-RNG-014",
+      "image": "/static/images/gallery/g14.jpg",
+      "swatch": 1,
+      "size": "square"
+    },
+    {
+      "id": "g15",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-015",
+      "image": "/static/images/gallery/g15.jpg",
+      "swatch": 2,
+      "size": "tall"
+    },
+    {
+      "id": "g16",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-016",
+      "image": "/static/images/gallery/g16.jpg",
+      "swatch": 3,
+      "size": "wide"
+    },
+    {
+      "id": "g17",
+      "category": "Necklace",
+      "price": 199,
+      "sku": "ZEV-NCK-017",
+      "image": "/static/images/gallery/g17.jpg",
+      "swatch": 4,
+      "size": "square"
+    },
+    {
+      "id": "g18",
+      "category": "Bracelet",
+      "price": 299,
+      "sku": "ZEV-BRC-018",
+      "image": "/static/images/gallery/g18.jpg",
+      "swatch": 5,
+      "size": "square"
+    },
+    {
+      "id": "g19",
+      "category": "Necklace",
+      "price": 199,
+      "sku": "ZEV-NCK-019",
+      "image": "/static/images/gallery/g19.jpg",
+      "swatch": 6,
+      "size": "square"
+    },
+    {
+      "id": "g20",
+      "category": "Earrings",
+      "price": 99,
+      "sku": "ZEV-EAR-020",
+      "image": "/static/images/gallery/g20.jpg",
+      "swatch": 7,
+      "size": "wide"
+    },
+    {
+      "id": "g21",
+      "category": "Bracelet",
+      "price": 289,
+      "sku": "ZEV-BRC-021",
+      "image": "/static/images/gallery/g21.jpg",
+      "swatch": 8,
+      "size": "wide"
+    }
+  ],
+  "before_after": [
+    {
+      "id": "ba1",
+      "title": "Heirloom Redesign",
+      "before_swatch": 13,
+      "after_swatch": 7
+    },
+    {
+      "id": "ba2",
+      "title": "Polish Refresh & Stone Check",
+      "before_swatch": 14,
+      "after_swatch": 4
+    },
+    {
+      "id": "ba3",
+      "title": "Custom Bridal Set Planning",
+      "before_swatch": 15,
+      "after_swatch": 10
+    }
+  ]
+}

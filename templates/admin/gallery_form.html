@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ "Edit" if mode == "edit" else "Add" }} Gallery Item | {{ content.business.name }}</title>
+  <link rel="stylesheet" href="{{ content.theme.fonts.google_fonts_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  {% include "partials/theme_vars.html" %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <header class="admin-topbar">
+      <div>
+        <span class="eyebrow"><i class="fa-solid fa-minus"></i> Back Office</span>
+        <h1>{{ "Edit" if mode == "edit" else "Add" }} Gallery Item</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('admin_gallery.gallery_list') }}">Gallery</a>
+        <a href="{{ url_for('main.admin_logout') }}">Logout</a>
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-stack">
+        {% for category, message in messages %}
+        <div class="flash flash--{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+
+    <section class="admin-panel">
+      <form class="gallery-form" method="post" id="galleryForm" novalidate>
+        <div class="gallery-form__row">
+          <div class="gallery-form__field gallery-form__field--upload">
+            <label>Photo{{ "" if mode == "edit" else " *" }}</label>
+            <div class="gallery-form__dropzone" id="dropzone" tabindex="0" role="button"
+                 aria-label="Upload photo">
+              <img id="preview" class="gallery-form__preview" alt="Preview"
+                   src="{{ item.image|cloudinary_url(600) if item.image else '' }}"
+                   style="{{ '' if item.image else 'display:none;' }}">
+              <div class="gallery-form__dropzone-hint" id="dropzoneHint" style="{{ 'display:none;' if item.image else '' }}">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>Click or drop a photo here</span>
+              </div>
+              <div class="gallery-form__progress" id="uploadProgress" hidden>
+                <div class="gallery-form__progress-bar" id="uploadProgressBar"></div>
+                <span id="uploadProgressLabel">Uploading…</span>
+              </div>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" hidden>
+            <input type="hidden" name="image_url" id="imageUrl" value="{{ item.image or '' }}">
+            <input type="hidden" name="image_public_id" id="imagePublicId" value="{{ item.image_public_id or '' }}">
+            {% if errors.image %}<span class="form-error">{{ errors.image }}</span>{% endif %}
+            <p class="gallery-form__hint">JPG, PNG, or WebP. Uploaded straight to Cloudinary — nothing is ever
+              written to the server's disk.</p>
+          </div>
+        </div>
+
+        <div class="gallery-form__row gallery-form__row--split">
+          <div class="gallery-form__field">
+            <label for="name">Title</label>
+            <input type="text" id="name" name="name" value="{{ item.name or '' }}" maxlength="120"
+                   placeholder="e.g. Antique Gold Hoop Earrings">
+          </div>
+          <div class="gallery-form__field">
+            <label for="category">Category *</label>
+            <input type="text" id="category" name="category" value="{{ item.category or '' }}" maxlength="60"
+                   list="categoryOptions" required>
+            <datalist id="categoryOptions">
+              {% for f in content.gallery.filters %}
+                {% if f != "All" %}<option value="{{ f }}">{% endif %}
+              {% endfor %}
+            </datalist>
+            {% if errors.category %}<span class="form-error">{{ errors.category }}</span>{% endif %}
+          </div>
+        </div>
+
+        <div class="gallery-form__row gallery-form__row--split">
+          <div class="gallery-form__field">
+            <label for="price">Price (₹) *</label>
+            <input type="number" id="price" name="price" value="{{ item.price if item.price is defined else '' }}"
+                   min="0" step="0.01" required>
+            {% if errors.price %}<span class="form-error">{{ errors.price }}</span>{% endif %}
+          </div>
+          <div class="gallery-form__field">
+            <label for="sku">SKU</label>
+            <input type="text" id="sku" name="sku" value="{{ item.sku or '' }}" maxlength="40"
+                   placeholder="e.g. ZEV-EAR-022">
+          </div>
+        </div>
+
+        <div class="gallery-form__row gallery-form__row--split">
+          <div class="gallery-form__field">
+            <label for="size">Grid size</label>
+            <select id="size" name="size">
+              {% for s in ["square", "tall", "wide"] %}
+              <option value="{{ s }}" {% if (item.size or "square") == s %}selected{% endif %}>{{ s|title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="gallery-form__field">
+            <label for="swatch">Fallback swatch (1–12)</label>
+            <input type="number" id="swatch" name="swatch" value="{{ item.swatch if item.swatch is defined else '' }}"
+                   min="1" max="12" placeholder="Random if left blank">
+          </div>
+        </div>
+
+        <div class="gallery-form__row">
+          <div class="gallery-form__field">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" maxlength="2000"
+                      placeholder="Optional notes about this piece">{{ item.description or '' }}</textarea>
+          </div>
+        </div>
+
+        <div class="gallery-form__actions">
+          <a class="btn-thread btn-thread--ghost" href="{{ url_for('admin_gallery.gallery_list') }}"><span>Cancel</span></a>
+          <button type="submit" class="btn-thread btn-thread--primary" id="submitBtn">
+            <span>{{ "Save Changes" if mode == "edit" else "Add Item" }}</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    window.__galleryAdmin = {
+      signatureUrl: {{ url_for('admin_gallery.upload_signature')|tojson }},
+      mode: {{ mode|tojson }},
+      hasExistingImage: {{ (item.image is defined and item.image)|tojson }}
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/admin_gallery.js') }}" defer></script>
+</body>
+</html>

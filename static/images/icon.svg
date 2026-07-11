@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Zewarish">
+  <rect width="512" height="512" rx="112" fill="#17110C"/>
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#C99A43" stroke-width="16"/>
+  <path d="M256 118 334 222 256 394 178 222Z" fill="none" stroke="#F0D38A" stroke-width="15" stroke-linejoin="round"/>
+  <path d="M178 222h156M215 222l41 172 41-172M256 118l-41 104h82Z" fill="none" stroke="#F0D38A" stroke-width="10" stroke-linejoin="round"/>
+  <text x="256" y="292" text-anchor="middle" fill="#FFF8EE" font-family="Georgia, serif" font-size="86" font-weight="500">ZW</text>
+</svg>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | {{ content.business.name }}</title>
+  <link rel="stylesheet" href="{{ content.theme.fonts.google_fonts_url }}">
+  {% include "partials/theme_vars.html" %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="admin-page">
+  <main class="admin-shell admin-shell--center">
+    <form class="admin-login" method="post">
+      <span class="site-footer__mark">FF</span>
+      <h1>Zewarish Admin</h1>
+      <p>Manage consultation requests and newsletter leads.</p>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required autofocus>
+      {% if error %}<span class="form-error">{{ error }}</span>{% endif %}
+      <button class="btn-thread btn-thread--primary" type="submit"><span>Sign In</span></button>
+      <a class="admin-back" href="/">Back to Website</a>
+    </form>
+  </main>
+</body>
+</html>

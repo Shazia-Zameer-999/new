@@ -1,0 +1,51 @@
+# =========================
+# Node.js / JavaScript
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json # (Optional: uncomment if you don't want to track lock files, though usually recommended to keep)
+
+# =========================
+# Next.js / React Builds
+# =========================
+.next/
+out/
+build/
+dist/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# =========================
+# Environment Variables & Secrets
+# =========================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# =========================
+# macOS System Files
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# Editor / IDE Directories
+# =========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj

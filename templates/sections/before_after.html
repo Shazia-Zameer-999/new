@@ -1,0 +1,19 @@
+{% import "macros/ui.html" as ui %}
+<section class="before-after" id="before-after" data-section="before-after">
+  <div class="container">
+    {{ ui.section_header("Real Results", "Before & after, honestly.", "Drag the divider to compare. No filters, no retouching.") }}
+
+    <div class="before-after__grid">
+      {% for ba in content.gallery.before_after %}
+      <div class="ba-slider" data-reveal>
+        <div class="ba-slider__frame">
+          <div class="swatch swatch--{{ ba.before_swatch % 12 + 1 }} ba-slider__before"><div class="swatch__sheen"></div><span class="ba-slider__tag">Before</span></div>
+          <div class="swatch swatch--{{ ba.after_swatch % 12 + 1 }} ba-slider__after"><div class="swatch__sheen"></div><span class="ba-slider__tag">After</span></div>
+          <div class="ba-slider__handle"><i class="fa-solid fa-arrows-left-right"></i></div>
+        </div>
+        <h4>{{ ba.title }}</h4>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

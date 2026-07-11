@@ -1,0 +1,16 @@
+{
+  "logo_text": "Zewarish",
+  "logo_suffix": "Jewellery",
+  "links": [
+    { "label": "House", "target": "#about" },
+    { "label": "Why Choose Us", "target": "#why-choose" },
+    { "label": "Collections", "target": "#gallery" },
+    { "label": "Reviews", "target": "#testimonials" },
+    { "label": "Founder", "target": "#team" },
+    { "label": "Instagram", "target": "#instagram" },
+    { "label": "FAQ", "target": "#faq" },
+    { "label": "Contact", "target": "#book.booking" }
+  ],
+  "cta_label": "Buy Now",
+  "cta_target": "https://www.instagram.com/zewarish.co/"
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | {{ content.business.name }}</title>
+  <link rel="stylesheet" href="{{ content.theme.fonts.google_fonts_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  {% include "partials/theme_vars.html" %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <header class="admin-topbar">
+      <div>
+        <span class="eyebrow"><i class="fa-solid fa-minus"></i> Back Office</span>
+        <h1>{{ content.business.short_name }} Dashboard</h1>
+      </div>
+      <nav>
+        <a href="/">Website</a>
+        <a href="{{ url_for('admin_gallery.gallery_list') }}">Gallery</a>
+        <a href="{{ url_for('main.admin_logout') }}">Logout</a>
+      </nav>
+    </header>
+
+    <section class="admin-stats" aria-label="Dashboard stats">
+      <div><strong>{{ stats.appointments }}</strong><span>Total requests</span></div>
+      <div><strong>{{ stats.new }}</strong><span>New</span></div>
+      <div><strong>{{ stats.confirmed }}</strong><span>Confirmed</span></div>
+      <div><strong>{{ stats.subscribers }}</strong><span>Subscribers</span></div>
+    </section>
+
+    <section class="admin-panel">
+      <div class="admin-panel__head">
+        <h2>Consultation Requests</h2>
+        <a href="{{ url_for('main.admin_export', kind='appointments') }}">Export JSON</a>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Client</th><th>Need</th><th>Date</th><th>Advisor</th><th>Status</th><th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in appointments %}
+            <tr>
+              <td><strong>{{ row.name }}</strong><span>{{ row.phone }}</span></td>
+              <td>{{ row.service }}</td>
+              <td>{{ row.date }}<span>{{ row.time }}</span></td>
+              <td>{{ row.stylist }}</td>
+              <td>
+                <form method="post" action="{{ url_for('main.admin_update_appointment', appointment_id=row.id) }}">
+                  <select name="status" onchange="this.form.submit()">
+                    {% for status in ["new", "confirmed", "completed", "cancelled"] %}
+                    <option value="{{ status }}" {% if row.status == status %}selected{% endif %}>{{ status|title }}</option>
+                    {% endfor %}
+                  </select>
+                </form>
+              </td>
+              <td>{{ row.notes or "—" }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="admin-empty">No consultation requests yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel">
+      <div class="admin-panel__head">
+        <h2>Newsletter Subscribers</h2>
+        <a href="{{ url_for('main.admin_export', kind='newsletter') }}">Export JSON</a>
+      </div>
+      <div class="admin-subscribers">
+        {% for row in subscribers %}
+        <span>{{ row.email }}</span>
+        {% else %}
+        <p class="admin-empty">No subscribers yet.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+</body>
+</html>

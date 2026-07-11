@@ -1,0 +1,20 @@
+{% import "macros/ui.html" as ui %}
+<section class="faq" id="faq" data-section="faq">
+  <div class="container faq__grid">
+    <div class="faq__intro" data-reveal>
+      {{ ui.section_header(content.faq.section.eyebrow, content.faq.section.title, content.faq.section.subtitle, align="left") }}
+      {{ ui.btn_thread("Ask on Instagram", content.socials.instagram, "primary", "instagram", magnetic=True) }}
+    </div>
+    <div class="faq__list">
+      {% for item in content.faq.questions %}
+      <div class="faq-item {{ 'is-open' if loop.first else '' }}" data-reveal>
+        <button class="faq-item__q" type="button">
+          <span>{{ item.q }}</span>
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <div class="faq-item__a"><p>{{ item.a }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

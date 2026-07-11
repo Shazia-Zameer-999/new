@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "eyebrow": "Zewarish.co — Anti-tarnished | Elegant | Affordable",
+    "headline_lines": ["Everyday,", "and occasional", "jewellery"],
+    "subheadline": "Jewellery that shines through every day and every celebration.  Elegant, anti-tarnish designs crafted to complement your style—without compromising on quality or affordability.",
+    "primary_cta": "Buy Now",
+    "primary_cta_target": "https://www.instagram.com/zewarish.co/",
+    "secondary_cta": "Explore Collections",
+    "secondary_cta_target": "#gallery",
+    "stat_badge_number": "100+",
+    "stat_badge_label": "pieces sold",
+    "scroll_hint": "Scroll to explore"
+  },
+  "about": {
+    "eyebrow": "The House",
+    "title": "Jewellery made to shine, every single day.",
+    "body": "At Zewarish, we believe beautiful jewellery should be part of your everyday style—not reserved for special occasions. Our thoughtfully curated anti-tarnish collection blends timeless elegance with modern minimalism, offering lightweight, durable, and affordable pieces you'll love wearing from morning meetings to evening celebrations. Designed to complement every outfit and delivered across India, every piece is made to shine with you, every day.",
+    "pull_quote": "Elegant. Everyday. Effortlessly You.",
+    "signature_name": "House of Zewarish",
+    "points": [
+      {
+        "title": "Anti-Tarnish Quality",
+        "detail": "Crafted with premium materials to maintain their shine through everyday wear."
+      },
+      {
+        "title": "Minimal & Timeless",
+        "detail": "Versatile designs that effortlessly elevate both everyday looks and special occasions."
+      },
+      {
+        "title": "Affordable Luxury",
+        "detail": "Premium-quality jewellery at prices you'll love, with secure Pan India delivery."
+      }
+    ]
+  },
+  "stats": [
+    { "number": 1200, "suffix": "+", "label": "Pieces Crafted" },
+    {
+      "number": 4.8,
+      "suffix": "/5",
+      "label": "Client Rating",
+      "decimal": true
+    },
+    { "number": 14, "suffix": "+", "label": "Craft Partners" },
+    { "number": 900, "suffix": "+", "label": "Happy Clients" }
+  ],
+  "why_choose": {
+    "eyebrow": "Why Zewarish",
+    "title": "The details that make every piece special.",
+    "cards": [
+      {
+        "icon": "gem",
+        "title": "Premium Quality",
+        "detail": "Every piece is carefully selected to deliver lasting shine, comfort, and everyday elegance."
+      },
+      {
+        "icon": "ruler-combined",
+        "title": "Perfect for Everyday Wear",
+        "detail": "Lightweight, comfortable designs created to complement your daily style as well as special occasions."
+      },
+      {
+        "icon": "shield",
+        "title": "Trusted Shopping",
+        "detail": "Enjoy secure ordering, carefully packed deliveries, and reliable Pan India shipping with every purchase."
+      },
+      {
+        "icon": "wand-sparkles",
+        "title": "Anti-Tarnish Finish",
+        "detail": "Designed with an anti-tarnish finish so your favourite jewellery stays radiant and beautiful for longer."
+      }
+    ]
+  },
+  "newsletter": {
+    "eyebrow": "The Vault List",
+    "title": "New drops and festive previews first.",
+    "body": "One email a month — collection launches, wedding-season edits, gifting guides, and private preview slots before they open publicly.",
+    "placeholder": "Enter your email",
+    "cta": "Subscribe",
+    "success_message": "You're on the vault list — welcome to Zewarish.",
+    "privacy_note": "No spam. Unsubscribe anytime."
+  }
+}

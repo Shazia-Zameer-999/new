@@ -1,0 +1,40 @@
+<footer class="site-footer" id="contact-footer">
+  <div class="site-footer__thread"></div>
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img class="site-footer__mark" src="/static/images/image.webp" alt="" />
+        <h3>{{ content.business.name }}.co</h3>
+        <p>{{ content.business.tagline }}</p>
+        <div class="site-footer__socials">
+          {% if content.socials.instagram %}<a
+            href="{{ content.socials.instagram }}"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+            ><i class="fa-brands fa-instagram"></i></a
+          >{% endif %} {% if content.socials.email %}<a
+            href="mailto:{{ content.socials.email }}"
+            aria-label="Email"
+            ><i class="fa-solid fa-envelope"></i></a
+          >{% endif %}
+        </div>
+      </div>
+
+      <div class="site-footer__col">
+        <h4>Navigate</h4>
+        {% for link in content.navigation.links %}
+        <a href="{{ link.target }}" data-scroll-link>{{ link.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span
+        >&copy; {{ content.business.founded_year }} {{ content.business.name }}.
+        All rights reserved.</span
+      >
+      <span class="site-footer__engine-note">Built with Love.</span>
+    </div>
+  </div>
+</footer>

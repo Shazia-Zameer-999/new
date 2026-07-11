@@ -1,0 +1,12 @@
+{
+  "section": {
+    "eyebrow": "Offers",
+    "title": "Limited jewellery privileges.",
+    "subtitle": "Seasonal benefits on consultations, gifting, and aftercare, updated without inflated pricing."
+  },
+  "offers": [
+    { "id": "o1", "title": "Wedding Season Preview", "detail": "Complimentary bridal styling consultation for wedding jewellery booked 60+ days in advance.", "tag": "Bridal", "expires": "Aug 31, 2026" },
+    { "id": "o2", "title": "Festive Gold Edit", "detail": "Free jewellery cleaning and polish check with eligible gold purchases.", "tag": "Gold", "expires": "Jul 31, 2026" },
+    { "id": "o3", "title": "Gift Box Upgrade", "detail": "Complimentary premium packaging on personalised jewellery gifts.", "tag": "Gifting", "expires": "Ongoing" }
+  ]
+}

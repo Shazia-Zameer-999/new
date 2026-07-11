@@ -1,0 +1,45 @@
+{% import "macros/ui.html" as ui %}
+<section class="about" id="about" data-section="about">
+  <div class="container about__grid">
+    <div class="about__visual" data-reveal-mask>
+      <div class="about__frame">
+        <div class="swatch swatch--2 about__swatch" data-tilt>
+          <div class="swatch__sheen"></div>
+          <img class="swatch__image"
+            src="/static/images/main.webp"
+            alt=""
+          />
+        </div>
+        <div class="about__frame-thread"></div>
+      </div>
+      <div class="about__quote-card" data-reveal>
+        <i class="fa-solid fa-quote-left"></i>
+        <p>{{ content.homepage.about.pull_quote }}</p>
+        <span>&mdash; {{ content.homepage.about.signature_name }}</span>
+      </div>
+    </div>
+
+    <div class="about__copy">
+      <span class="eyebrow" data-reveal
+        ><i class="fa-solid fa-minus"></i> {{ content.homepage.about.eyebrow
+        }}</span
+      >
+      <h2 class="section-title" data-reveal>
+        {{ content.homepage.about.title }}
+      </h2>
+      <p class="about__body" data-reveal>{{ content.homepage.about.body }}</p>
+
+      <div class="about__points">
+        {% for p in content.homepage.about.points %}
+        <div class="about__point" data-reveal>
+          <span class="about__point-num">0{{ loop.index }}</span>
+          <div>
+            <h4>{{ p.title }}</h4>
+            <p>{{ p.detail }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

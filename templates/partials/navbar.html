@@ -1,0 +1,36 @@
+<header class="site-nav" id="siteNav">
+  <div class="site-nav__inner">
+    <a href="#top" class="site-nav__logo" data-scroll-link>
+      <img class="site-nav__logo-mark" src="/static/images/image.webp" alt="Zewarish" fetchpriority="high" width="40" height="40">
+
+      <span class="site-nav__logo-text">
+        <strong>{{ content.navigation.logo_text }}</strong>
+        <em>{{ content.navigation.logo_suffix }}</em>
+      </span>
+    </a>
+
+    <nav class="site-nav__links" id="navLinks">
+      {% for link in content.navigation.links %}
+      <a href="{{ link.target }}" data-scroll-link>{{ link.label }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="site-nav__actions">
+      <a href="{{ content.navigation.cta_target }}" class="btn btn-thread btn-thread--sm" target="_blank" data-scroll-link data-magnetic>
+        {{ content.navigation.cta_label }}
+      </a>
+      <button class="site-nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    {% for link in content.navigation.links %}
+    <a href="{{ link.target }}" data-scroll-link>{{ link.label }}</a>
+    {% endfor %}
+    <a href="{{ content.navigation.cta_target }}" class="btn btn-thread" data-scroll-link>{{ content.navigation.cta_label }}</a>
+  </nav>
+</div>

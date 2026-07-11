@@ -1,0 +1,45 @@
+{% import "macros/ui.html" as ui %}
+<section class="hero" id="top" data-section="hero">
+  <div class="hero__bg">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <svg class="hero__wave" viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="M0,120 C320,220 720,20 1440,140 L1440,220 L0,220 Z"></path></svg>
+  </div>
+
+  <div class="hero__thread" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <p class="hero__eyebrow" data-reveal><i class="fa-solid fa-minus"></i> {{ content.homepage.hero.eyebrow }}</p>
+
+    <h1 class="hero__headline">
+      {% for line in content.homepage.hero.headline_lines %}
+      <span class="hero__line"><span class="hero__line-inner">{{ line }}</span></span>
+      {% endfor %}
+    </h1>
+
+    <p class="hero__sub" data-reveal>{{ content.homepage.hero.subheadline }}</p>
+
+    <div class="hero__cta-row" data-reveal>
+      <div id="hero-primary-btn">      {{ ui.btn_thread(content.homepage.hero.primary_cta, content.homepage.hero.primary_cta_target, "primary", "calendar-check") }}</div>
+
+      {{ ui.btn_thread(content.homepage.hero.secondary_cta, content.homepage.hero.secondary_cta_target, "ghost", "images") }}
+    </div>
+
+    <div class="hero__badge" data-reveal>
+      <div class="hero__badge-stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+      </div>
+      <strong>{{ content.homepage.hero.stat_badge_number }}</strong>
+      <span>{{ content.homepage.hero.stat_badge_label }}</span>
+    </div>
+  </div>
+
+  <div class="hero__scroll-hint">
+    <span>{{ content.homepage.hero.scroll_hint }}</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+<script>
+  // Select the anchor tag inside the container and set its target
+  document.querySelector('#hero-primary-btn a').setAttribute('target', '_blank');
+</script>

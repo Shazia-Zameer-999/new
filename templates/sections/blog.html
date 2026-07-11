@@ -1,0 +1,17 @@
+{% import "macros/ui.html" as ui %}
+<section class="blog" id="blog" data-section="blog">
+  <div class="container">
+    {{ ui.section_header(content.blog.section.eyebrow, content.blog.section.title, content.blog.section.subtitle) }}
+    <div class="blog__grid">
+      {% for post in content.blog.posts %}
+      <article class="blog-card" data-reveal>
+        <div class="swatch swatch--{{ post.swatch % 12 + 1 }} blog-card__cover"><div class="swatch__sheen"></div></div>
+        <span class="blog-card__cat">{{ post.category }} &middot; {{ post.read_time }} read</span>
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.excerpt }}</p>
+        <span class="blog-card__link">Read note <i class="fa-solid fa-arrow-right"></i></span>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

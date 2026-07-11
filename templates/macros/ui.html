@@ -1,0 +1,20 @@
+{% macro section_header(eyebrow, title, subtitle=None, align="center") -%}
+<div class="section-header section-header--{{ align }}" data-reveal>
+  <span class="eyebrow"><i class="fa-solid fa-minus"></i> {{ eyebrow }}</span>
+  <h2 class="section-title">{{ title }}</h2>
+  {% if subtitle %}<p class="section-subtitle">{{ subtitle }}</p>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro btn_thread(label, target, variant="primary", icon=None, extra_class="", magnetic=True) -%}
+<a href="{{ target }}" class="btn btn-thread btn-thread--{{ variant }} {{ extra_class }}" data-scroll-link {% if magnetic %}data-magnetic{% endif %}>
+  <span>{{ label }}</span>{% if icon %}<i class="fa-solid fa-{{ icon }}"></i>{% endif %}
+</a>
+{%- endmacro %}
+
+{% macro swatch(n, label=None, extra_class="") -%}
+<div class="swatch swatch--{{ n % 12 + 1 }} {{ extra_class }}" data-tilt>
+  <div class="swatch__sheen"></div>
+  {% if label %}<span class="swatch__label">{{ label }}</span>{% endif %}
+</div>
+{%- endmacro %}
