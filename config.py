@@ -3,7 +3,7 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-key-change-in-production")
-    ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+    ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "dev-password-change-in-production")
     JSON_SORT_KEYS = False
     TEMPLATES_AUTO_RELOAD = os.environ.get("FLASK_ENV") == "development"
 
