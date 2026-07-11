@@ -78,6 +78,7 @@
       body.append("timestamp", sig.timestamp);
       body.append("signature", sig.signature);
       body.append("folder", sig.folder);
+      body.append("eager", sig.eager);
 
       const xhr = new XMLHttpRequest();
       xhr.open("POST", url, true);

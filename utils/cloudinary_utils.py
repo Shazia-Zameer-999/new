@@ -36,6 +36,13 @@ import cloudinary.utils
 
 _configured = False
 
+# Used in two places that must stay identical, or Cloudinary treats them as
+# two different derived assets (defeating the whole point of eager-
+# generating one at upload time): the eager transform requested at upload
+# (generate_upload_signature) and the delivery URL built for every <img>
+# (optimized_url). Change the width/params here once, both follow.
+DEFAULT_TRANSFORM = "f_auto,q_auto,w_1200,c_limit"
+
 
 def configure(app):
     """Call once from create_app(). Safe to call multiple times."""
@@ -60,13 +67,21 @@ def generate_upload_signature(folder: str) -> dict:
     reject the upload with 'Invalid Signature' -- that's a feature: it
     stops anyone from smuggling in extra params (like a different folder
     or an upload_preset) using a signature meant for something else.
+
+    `eager` asks Cloudinary to generate the transformed delivery version
+    (see DEFAULT_TRANSFORM) synchronously, as part of this upload call --
+    so it already exists by the time the item shows up on the public site,
+    instead of being generated on-the-fly the first time a visitor's
+    browser requests it (which is what made freshly-uploaded photos feel
+    slow/broken until a couple of refreshes).
     """
     timestamp = int(time.time())
-    params_to_sign = {"timestamp": timestamp, "folder": folder}
+    params_to_sign = {"timestamp": timestamp, "folder": folder, "eager": DEFAULT_TRANSFORM}
     signature = cloudinary.utils.api_sign_request(params_to_sign, cloudinary.config().api_secret)
     return {
         "timestamp": timestamp,
         "folder": folder,
+        "eager": DEFAULT_TRANSFORM,
         "signature": signature,
         "api_key": cloudinary.config().api_key,
         "cloud_name": cloudinary.config().cloud_name,
@@ -100,5 +115,5 @@ def optimized_url(url: str, width: int = 1200) -> str:
     """
     if not url or "res.cloudinary.com" not in url or "/upload/" not in url:
         return url
-    transform = f"f_auto,q_auto,w_{width},c_limit"
+    transform = DEFAULT_TRANSFORM if width == 1200 else f"f_auto,q_auto,w_{width},c_limit"
     return url.replace("/upload/", f"/upload/{transform}/", 1)
