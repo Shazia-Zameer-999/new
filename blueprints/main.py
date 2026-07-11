@@ -256,7 +256,7 @@ def manifest():
         "display": "standalone",
         "background_color": palette.get("ivory", "#ffffff"),
         "theme_color": palette.get("bordeaux", "#7A2438"),
-        "icons": [{"src": "/static/images/image.webp", "sizes": "any", "type": "image/svg+xml"}],
+        "icons": [{"src": "/static/images/image.webp", "sizes": "any", "type": "image/webp"}],
     }
     return jsonify(payload)
 
