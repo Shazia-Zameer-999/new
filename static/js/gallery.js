@@ -368,8 +368,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentOrderItem = null;
 
+  function resolveImageUrl(item) {
+    const src = item.dataset.image || "";
+    if (!src) return "";
+    // Cloudinary URLs are already absolute (https://res.cloudinary.com/...).
+    // Legacy /static/images/... paths are relative, so prefix the origin
+    // to make them a real, shareable link (works when pasted into Instagram,
+    // WhatsApp, etc. -- not just when viewed on the site itself).
+    return /^https?:\/\//i.test(src) ? src : `${window.location.origin}${src}`;
+  }
+
   function buildOrderMessage(item) {
-    return `Hi Zewarish,\n\nI would like to order this jewellery.\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: https://zewarish.vercel.app/static/images/gallery/${item.dataset.id || ""}.jpg\n\nPlease let me know the availability.`;
+    const productLink = resolveImageUrl(item);
+    return `Hi Zewarish,\n\nI would like to order this jewellery.\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: ${productLink}\n\nPlease let me know the availability.`;
   }
 
   function getIgUser() {
