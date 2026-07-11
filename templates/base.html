@@ -1,74 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>{{ content.seo.title }}</title>
-<meta name="description" content="{{ content.seo.meta_description }}">
-<meta name="keywords" content="{{ content.seo.keywords | join(', ') }}">
-<link rel="canonical" href="{{ content.seo.canonical_url }}">
-<meta name="theme-color" content="{{ content.theme.palette.bordeaux }}">
-<link rel="manifest" href="{{ url_for('main.manifest') }}">
-<link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}" type="image/svg+xml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>{{ content.seo.title }}</title>
+    <meta name="description" content="{{ content.seo.meta_description }}" />
+    <meta name="keywords" content="{{ content.seo.keywords | join(', ') }}" />
+    <link rel="canonical" href="{{ content.seo.canonical_url }}" />
+    <meta name="theme-color" content="{{ content.theme.palette.bordeaux }}" />
+    <link rel="manifest" href="{{ url_for('main.manifest') }}" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/icon.svg') }}"
+      type="image/svg+xml"
+    />
 
-<!-- OpenGraph -->
-<meta property="og:type" content="business.business">
-<meta property="og:title" content="{{ content.seo.title }}">
-<meta property="og:description" content="{{ content.seo.meta_description }}">
-<meta property="og:image" content="{{ content.seo.og_image }}">
-<meta property="og:locale" content="{{ content.seo.locale }}">
+    <!-- OpenGraph -->
+    <meta property="og:type" content="business.business" />
+    <meta property="og:title" content="{{ content.seo.title }}" />
+    <meta
+      property="og:description"
+      content="{{ content.seo.meta_description }}"
+    />
+    <meta property="og:image" content="{{ content.seo.og_image }}" />
+    <meta property="og:locale" content="{{ content.seo.locale }}" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="{{ content.seo.twitter_handle }}">
-<meta name="twitter:title" content="{{ content.seo.title }}">
-<meta name="twitter:description" content="{{ content.seo.meta_description }}">
-<meta name="twitter:image" content="{{ content.seo.og_image }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ content.seo.twitter_handle }}" />
+    <meta name="twitter:title" content="{{ content.seo.title }}" />
+    <meta
+      name="twitter:description"
+      content="{{ content.seo.meta_description }}"
+    />
+    <meta name="twitter:image" content="{{ content.seo.og_image }}" />
 
-<!-- JSON-LD structured data -->
-<script type="application/ld+json">{{ schema_json | safe }}</script>
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+      {{ schema_json | safe }}
+    </script>
 
-<!-- Fonts: self-hosted (replaces fonts.googleapis.com / fonts.gstatic.com) -->
-<link rel="preload" href="{{ url_for('static', filename='fonts/manrope-400.woff2') }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ url_for('static', filename='fonts/cormorant-garamond-500.woff2') }}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fonts.css') }}">
+    <!-- Fonts: self-hosted (replaces fonts.googleapis.com / fonts.gstatic.com) -->
+    <link
+      rel="preload"
+      href="{{ url_for('static', filename='fonts/manrope-v20-latin-regular.woff2') }}"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="{{ url_for('static', filename='fonts/cormorant-garamond-v21-latin-500.woff2') }}"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='fonts/fonts.css') }}"
+    />
 
-<!-- Icons: self-hosted Font Awesome (replaces cdnjs) -->
-<link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome/css/all.min.css') }}">
+    <!-- Icons: self-hosted Font Awesome (replaces cdnjs) -->
+    <!-- Loaded non-render-blocking: icons aren't needed for first paint -->
+    <link
+      rel="preload"
+      href="{{ url_for('static', filename='vendor/fontawesome/css/all.min.css') }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='vendor/fontawesome/css/all.min.css') }}"
+      />
+    </noscript>
 
-<!-- Swiper: self-hosted (replaces cdn.jsdelivr.net) -->
-<link rel="stylesheet" href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}">
+    <!-- Swiper: self-hosted (replaces cdn.jsdelivr.net) -->
+    <!-- Loaded non-render-blocking: carousels are below the fold -->
+    <link
+      rel="preload"
+      href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}"
+      />
+    </noscript>
 
-<!-- Theme (config-generated CSS variables) -->
-{% include "partials/theme_vars.html" %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-{% block extra_head %}{% endblock %}
-</head>
-<body>
-{% include "partials/loading_screen.html" %}
-{% include "partials/cursor.html" %}
-<div class="scroll-progress" id="scrollProgress"><span></span></div>
-{% include "partials/navbar.html" %}
-<main id="smooth-wrapper">
-<div id="smooth-content">
-{% block content %}{% endblock %}
-{% include "partials/footer.html" %}
-</div>
-</main>
-<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <!-- Theme (config-generated CSS variables) -->
+    {% include "partials/theme_vars.html" %}
 
-<!-- Vendor scripts: self-hosted (replaces unpkg.com / cdnjs.cloudflare.com / cdn.jsdelivr.net) -->
-<script src="{{ url_for('static', filename='vendor/lenis/lenis.min.js') }}" defer></script>
-<script src="{{ url_for('static', filename='vendor/gsap/gsap.min.js') }}" defer></script>
-<script src="{{ url_for('static', filename='vendor/gsap/ScrollTrigger.min.js') }}" defer></script>
-<script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}" defer></script>
+    <!-- Critical CSS: reset, loader, navbar, hero — inlined so first paint
+         doesn't wait on a network request. Keep in sync with main.css if
+         you edit the loader/navbar/hero sections (see comment at bottom
+         of that partial). -->
+    {% include "partials/critical_css.html" %}
 
-<!-- App scripts (defer preserves this exact order, runs after vendor scripts, before DOMContentLoaded) -->
-<script src="{{ url_for('static', filename='js/cursor.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/scroll.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/animations.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/gallery.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/forms.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-</body>
+    <!-- Full stylesheet: loaded non-render-blocking since the critical
+         above-the-fold styles are already inlined above. Covers every
+         section below the hero (about, gallery, testimonials, footer, etc). -->
+    <link
+      rel="preload"
+      href="{{ url_for('static', filename='css/main.css') }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/main.css') }}"
+      />
+    </noscript>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    {% include "partials/loading_screen.html" %} {% include
+    "partials/cursor.html" %}
+    <div class="scroll-progress" id="scrollProgress"><span></span></div>
+    {% include "partials/navbar.html" %}
+    <main id="smooth-wrapper">
+      <div id="smooth-content">
+        {% block content %}{% endblock %} {% include "partials/footer.html" %}
+      </div>
+    </main>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Vendor scripts: self-hosted (replaces unpkg.com / cdnjs.cloudflare.com / cdn.jsdelivr.net) -->
+    <script
+      src="{{ url_for('static', filename='vendor/lenis/lenis.min.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='vendor/gsap/gsap.min.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='vendor/gsap/ScrollTrigger.min.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"
+      defer
+    ></script>
+
+    <!-- App scripts (defer preserves this exact order, runs after vendor scripts, before DOMContentLoaded) -->
+    <script
+      src="{{ url_for('static', filename='js/cursor.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='js/scroll.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='js/animations.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='js/gallery.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='js/forms.js') }}"
+      defer
+    ></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  </body>
 </html>
