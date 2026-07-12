@@ -66,6 +66,11 @@
             <!-- <strong class="gallery-admin-card__name">{{ item.name or "this piece" }}</strong> -->
             <span class="gallery-admin-card__price">₹{{ item.price|default(0) }}</span>
             {% if item.sku %}<span class="gallery-admin-card__sku">SKU {{ item.sku }}</span>{% endif %}
+            {% if item.in_stock is defined and not item.in_stock %}
+            <span class="gallery-admin-card__stock gallery-admin-card__stock--out">Out of Stock</span>
+            {% else %}
+            <span class="gallery-admin-card__stock gallery-admin-card__stock--in">In Stock</span>
+            {% endif %}
           </div>
           <div class="gallery-admin-card__actions">
             <a class="btn-thread btn-thread--ghost btn-thread--sm" href="{{ url_for('admin_gallery.gallery_edit', item_id=item.id) }}">

@@ -17,8 +17,9 @@
 
     <div class="gallery__grid" id="galleryGrid">
       {% for item in content.gallery.photos %}
+      {% set in_stock = item.in_stock is not defined or item.in_stock %}
       <figure
-        class="gallery__item gallery__item--{{ item.size }}"
+        class="gallery__item gallery__item--{{ item.size }} {{ '' if in_stock else 'is-out-of-stock' }}"
         data-category="{{ item.category }}"
         data-reveal
         data-id="{{ item.id }}"
@@ -31,6 +32,7 @@
         data-lightbox-title="{{ item.name }}"
         data-lightbox-category="{{ item.category }}"
         data-lightbox-swatch="{{ item.swatch|default(0) }}"
+        data-in-stock="{{ 'true' if in_stock else 'false' }}"
       >
         <div class="gallery__item-media">
           <img
@@ -49,6 +51,10 @@
         </div>
 
         <div class="gallery__item-price">₹{{ item.price }}</div>
+
+        {% if not in_stock %}
+        <span class="gallery__item-stock-badge">Out of Stock</span>
+        {% endif %}
 
         <button
           class="gallery__item-save"
@@ -133,6 +139,7 @@
     <div class="lightbox__price" id="lightboxPrice"></div>
 
     <div class="lightbox__info">
+      <span class="lightbox__stock-badge" id="lightboxStockBadge" hidden>Out of Stock</span>
       <span id="lightboxCategory"></span>
       <h3 id="lightboxTitle"></h3>
       <span class="lightbox__sku" id="lightboxSku"></span>

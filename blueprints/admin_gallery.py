@@ -84,6 +84,13 @@ def _parse_swatch(raw):
     return value if 1 <= value <= 12 else random.randint(1, 12)
 
 
+def _parse_in_stock(raw):
+    """The form posts either "in_stock" or "out_of_stock" from a <select>.
+    Anything else (missing field, unexpected value) safely defaults to
+    in-stock so an old/odd request never accidentally hides an item."""
+    return (raw or "").strip().lower() != "out_of_stock"
+
+
 def _validate_form(form, *, require_image: bool):
     """Returns (fields dict ready for Mongo, errors dict keyed by field)."""
     errors = {}
@@ -109,6 +116,7 @@ def _validate_form(form, *, require_image: bool):
         errors["price"] = price_error
 
     swatch = _parse_swatch(form.get("swatch"))
+    in_stock = _parse_in_stock(form.get("in_stock"))
 
     image_url = _clean_str(form.get("image_url"))
     image_public_id = _clean_str(form.get("image_public_id"))
@@ -121,6 +129,7 @@ def _validate_form(form, *, require_image: bool):
         "sku": sku,
         "size": size,
         "swatch": swatch,
+        "in_stock": in_stock,
     }
     if price is not None:
         fields["price"] = price

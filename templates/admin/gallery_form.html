@@ -50,6 +50,7 @@
                 <div class="gallery-form__progress-bar" id="uploadProgressBar"></div>
                 <span id="uploadProgressLabel">Uploading…</span>
               </div>
+              <span class="gallery-form__stock-badge" id="stockBadge" hidden>Out of Stock</span>
             </div>
             <input type="file" id="fileInput" accept="image/*" hidden>
             <input type="hidden" name="image_url" id="imageUrl" value="{{ item.image or '' }}">
@@ -105,6 +106,19 @@
             <input type="number" id="swatch" name="swatch" value="{{ item.swatch if item.swatch is defined else '' }}"
                    min="1" max="12" placeholder="Random if left blank">
                    {% if errors.swatch %}<span class="form-error">{{ errors.swatch }}</span>{% endif %}
+          </div>
+        </div>
+
+        <div class="gallery-form__row gallery-form__row--split">
+          <div class="gallery-form__field">
+            <label for="in_stock">Availability *</label>
+            <select id="in_stock" name="in_stock">
+              <option value="in_stock" {% if item.in_stock is not defined or item.in_stock %}selected{% endif %}>In Stock</option>
+              <option value="out_of_stock" {% if item.in_stock is defined and not item.in_stock %}selected{% endif %}>Out of Stock</option>
+            </select>
+            {% if errors.in_stock %}<span class="form-error">{{ errors.in_stock }}</span>{% endif %}
+            <p class="gallery-form__hint">Out-of-stock items stay visible on the site with a "Sold Out" badge
+              and can't be ordered until you switch this back to In Stock.</p>
           </div>
         </div>
 

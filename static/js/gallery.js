@@ -145,6 +145,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lightboxSku) lightboxSku.textContent = item.dataset.sku ? "SKU " + item.dataset.sku : "";
     if (lightboxDescription) lightboxDescription.textContent = item.dataset.description || "";
 
+    // Reflect stock status: show the badge, and switch the order button
+    // into a "Pre-Order" flow (still clickable — buildOrderMessage() below
+    // tailors the DM text for pre-orders). Items with no data-in-stock
+    // attribute at all (older markup) are treated as in-stock, same as
+    // the template default.
+    const inStock = item.dataset.inStock !== "false";
+    const lightboxStockBadge = document.getElementById("lightboxStockBadge");
+    if (lightboxStockBadge) lightboxStockBadge.hidden = inStock;
+    const lightboxOrderBtn = document.getElementById("lightboxOrderBtn");
+    if (lightboxOrderBtn) {
+      lightboxOrderBtn.disabled = false;
+      lightboxOrderBtn.classList.toggle("is-preorder", !inStock);
+      const orderLabel = lightboxOrderBtn.querySelector("span");
+      if (orderLabel) orderLabel.textContent = inStock ? "Order on Instagram" : "Pre-Order on Instagram";
+    }
+
     if (lightboxImage && lightboxMedia) {
       const imgSrc = item.dataset.image || "";
       lightboxMedia.classList.remove("img-fallback");
@@ -407,7 +423,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function buildOrderMessage(item) {
     const productLink = resolveImageUrl(item);
-    return `Hi Zewarish,\n\nI would like to order this jewellery.\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: ${productLink}\n\nPlease let me know the availability.`;
+    const intro = item.dataset.inStock === "false"
+      ? "I would like to pre order this out of stock item."
+      : "I would like to order this jewellery.";
+    return `Hi Zewarish,\n\n${intro}\n\nProduct: ${item.dataset.name || ""}\nSKU: ${item.dataset.sku || ""}\nPrice: ₹${item.dataset.price || ""}\nProduct Link: ${productLink}\n\nPlease let me know the availability.`;
   }
 
   function getIgUser() {
@@ -619,18 +638,23 @@ function renderWishlistDrawer() {
       .map((item) => {
         // Fetch the image source from the dataset
         const imgSrc = item.dataset.image || "";
-        
+        // Mirror the same in-stock/out-of-stock treatment used on the grid
+        // card and in the lightbox, so the wishlist drawer never looks out
+        // of sync with the rest of the site.
+        const inStock = item.dataset.inStock !== "false";
+
         return `
-          <div class="wishlist-card" data-id="${item.dataset.id}">
+          <div class="wishlist-card ${inStock ? "" : "is-out-of-stock"}" data-id="${item.dataset.id}">
             <div class="wishlist-card__swatch">
               <img src="${imgSrc}" alt="${item.dataset.name || ""}" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
             </div>
             <div class="wishlist-card__info">
               <span class="wishlist-card__cat">${item.dataset.category || ""}</span>
+              ${inStock ? "" : '<span class="wishlist-card__stock-badge">Out of Stock</span>'}
               <p class="wishlist-card__name">${item.dataset.name || ""}</p>
               <span class="wishlist-card__price">${item.dataset.price || ""}</span>
               <div class="wishlist-card__actions">
-                <button class="wishlist-card__order" data-drawer-order>Order</button>
+                <button class="wishlist-card__order ${inStock ? "" : "is-preorder"}" data-drawer-order>${inStock ? "Order" : "Pre-Order"}</button>
                 <button class="wishlist-card__remove" data-drawer-remove>Remove</button>
               </div>
             </div>

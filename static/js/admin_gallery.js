@@ -23,6 +23,17 @@
   const imagePublicIdInput = document.getElementById("imagePublicId");
   const form = document.getElementById("galleryForm");
   const submitBtn = document.getElementById("submitBtn");
+  const stockSelect = document.getElementById("in_stock");
+  const stockBadge = document.getElementById("stockBadge");
+
+  // Keep the "Out of Stock" badge over the photo preview in sync with the
+  // Availability select — updates instantly, no page reload needed.
+  function syncStockBadge() {
+    if (!stockSelect || !stockBadge) return;
+    stockBadge.hidden = stockSelect.value !== "out_of_stock";
+  }
+  stockSelect?.addEventListener("change", syncStockBadge);
+  syncStockBadge();
 
   if (!dropzone || !fileInput) return;
 

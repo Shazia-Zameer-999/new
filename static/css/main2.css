@@ -1560,8 +1560,8 @@ height:28px;
    ========================================================================== */
 .gallery__item-stock-badge {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    top: 9.5rem;
+    left: 11rem;
     z-index: 3;
     padding: 0.2rem 0.55rem;
     font-size: 0.62rem;
@@ -1600,7 +1600,7 @@ height:28px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: #7f1734;  /* Your red color */
-    background: rgba(243, 240, 241, 0.822);
+    background: rgb(237 229 232);
     border-radius: var(--radius-pill);
 }
 .lightbox__stock-badge[hidden] {
@@ -1610,6 +1610,17 @@ height:28px;
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
+}
+@media (max-width: 1250px) {
+    .gallery__item-stock-badge {
+        /* Reset your desktop left/top pushes */
+        top: auto;
+        left: auto;
+        
+        /* Pin it to the bottom right corner of the container instead */
+        bottom: 1rem;
+        right: 1rem;
+    }
 }
 /* ==========================================================================
   Lightbox Enhancements
